@@ -1,6 +1,6 @@
 import { StoryData } from "@/app/types/stories";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import StoryIndicator from "./StoryIndicator";
 import StoryHeader from "./StoryHeader";
 
@@ -11,17 +11,25 @@ type Props = {
 };
 
 const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
+  const swaipeInterval = useRef<NodeJS.Timeout | null>(null);
   const story = data[activeStory];
   const [activeContent, setActiveContent] = React.useState<number>(0);
   const content = story.content[activeContent];
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLDivElement> | null,
+    direction?: string
+  ) => {
     const viewportWidth = window.innerWidth;
-    const clickPosition = e.clientX;
+    const clickPosition = e?.clientX ?? 0;
     let activeIndex = activeContent;
     let storyIndex = activeStory;
 
-    if (clickPosition > viewportWidth / 2) {
+    if (!direction) {
+      swaipeInterval.current && clearInterval(swaipeInterval.current);
+    }
+
+    if (direction === "right" || clickPosition > viewportWidth / 2) {
       // Go to next activeContent if 50% right clicked
       if (activeIndex < story.content.length - 1) {
         activeIndex = activeContent + 1;
@@ -46,6 +54,17 @@ const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
     setActiveStory(storyIndex);
     setActiveContent(activeIndex);
   };
+
+  useEffect(() => {
+    swaipeInterval.current = setInterval(() => {
+      handleClick(null, "right");
+    }, 5000);
+    return () => {
+      if (swaipeInterval.current) {
+        clearInterval(swaipeInterval.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="fixed top-0 z-50 w-[375px] overflow-hidden h-full bg-black text-white left-[50%] transform -translate-x-1/2">
