@@ -7,25 +7,21 @@ export async function GET() {
       title: "My Story",
       user: {
         username: "Rohit",
-        avatar: "https://via.placeholder.com/150",
+        avatar: "https://avatars.githubusercontent.com/u/30390511?v=4",
       },
       content: [
         {
           type: "image",
-          src: "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=1080&fit=max",
-        },
-        {
-          type: "image",
-          src: "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=1080&fit=max",
-        },
+          src: "https://i.pinimg.com/736x/3c/18/a4/3c18a4208a752cd581c37f9a2cb0e9e2.jpg",
+        }
       ],
     },
     {
       id: 2,
       title: "My Story",
       user: {
-        username: "user2",
-        avatar: "https://via.placeholder.com/150",
+        username: "rambo",
+        avatar: "https://avatars.githubusercontent.com/u/30390511?v=4",
       },
       content: [
         {
@@ -33,8 +29,8 @@ export async function GET() {
           src: "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=1080&fit=max",
         },
         {
-          type: "video",
-          src: "https://via.placeholder.com/150",
+          type: "image",
+          src: "https://avatars.githubusercontent.com/u/30390511?v=4",
         },
       ],
     },
@@ -42,18 +38,14 @@ export async function GET() {
       id: 3,
       title: "My Story",
       user: {
-        username: "user3",
-        avatar: "https://via.placeholder.com/150",
+        username: "ronnie",
+        avatar: "https://avatars.githubusercontent.com/u/30390511?v=4",
       },
       content: [
         {
           type: "image",
-          src: "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=1080&fit=max",
-        },
-        {
-          type: "video",
-          src: "https://via.placeholder.com/150",
-        },
+          src: "https://i.pinimg.com/736x/3c/18/a4/3c18a4208a752cd581c37f9a2cb0e9e2.jpg",
+        }
       ],
     },
   ];

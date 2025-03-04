@@ -18,7 +18,7 @@ export default function StoryPage() {
   }, []);
 
   return (
-    <main className="min-h-screen w-[375px] overflow-hidden mx-auto border border-gray-300">
+    <main className="min-h-screen w-[375px] overflow-hidden mx-auto border border-gray-300 text-white bg-black">
       <Stories data={data} />
     </main>
   );

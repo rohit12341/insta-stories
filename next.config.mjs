@@ -3,7 +3,9 @@ const nextConfig = {
     images: {
         domains: [
           'via.placeholder.com',
-          'images.unsplash.com'
+          'images.unsplash.com',
+          'i.pinimg.com',
+          'avatars.githubusercontent.com'
         ],
       },
 };

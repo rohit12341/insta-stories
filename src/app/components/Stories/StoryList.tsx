@@ -1,8 +1,6 @@
 import { StoryData } from "@/app/types/stories";
-import Image from "next/image";
 import React, { useEffect, useRef } from "react";
-import StoryIndicator from "./StoryIndicator";
-import StoryHeader from "./StoryHeader";
+import StoryCard from "./StroyCard";
 
 type Props = {
   data: StoryData[];
@@ -11,10 +9,21 @@ type Props = {
 };
 
 const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const swaipeInterval = useRef<NodeJS.Timeout | null>(null);
   const story = data[activeStory];
   const [activeContent, setActiveContent] = React.useState<number>(0);
-  const content = story.content[activeContent];
+
+  const scrollToStory = (index: number) => {
+      const parent = containerRef.current;
+      if (parent && parent.children[index]) {
+        (parent.children[index] as HTMLElement).scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      }
+      console.log('scrolled to', index)
+  }
 
   const handleClick = (
     e: React.MouseEvent<HTMLDivElement> | null,
@@ -46,13 +55,14 @@ const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
       // Go to previous activeContent if 50% left clicked
       if (activeIndex > 0) {
         activeIndex = activeContent - 1;
-      } else if (activeIndex < story.content.length - 1) {
+      } else if (activeIndex <= story.content.length - 1) {
         storyIndex = activeStory > 0 ? activeStory - 1 : 0;
         activeIndex = 0;
       }
     }
     setActiveStory(storyIndex);
     setActiveContent(activeIndex);
+    scrollToStory(storyIndex)
   };
 
   useEffect(() => {
@@ -68,35 +78,14 @@ const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
 
   return (
     <div className="fixed top-0 z-50 w-[375px] overflow-hidden h-full bg-black text-white left-[50%] transform -translate-x-1/2">
-      <StoryIndicator
-        size={story.content.length}
-        activeContent={activeContent}
-      />
-      <StoryHeader user={story.user} setActiveStory={setActiveStory} />
       <div
         onClick={handleClick}
-        className="flex justify-center flex-col gap-4 h-full w-full"
+        ref={containerRef}
+        className="flex justify-start gap-x-3 snap-x snap-mandatory no-scrollbar"
       >
-        {content && (
-          <div className="">
-            {content.type === "image" && (
-              <Image
-                src={content.src}
-                width={window.innerWidth}
-                height={window.innerHeight}
-                alt={story.title}
-                className="w-full max-h-screen object-cover"
-              />
-            )}
-            {content.type === "video" && (
-              <video
-                src={content.src}
-                controls
-                className="w-full max-h-screen"
-              />
-            )}
-          </div>
-        )}
+        {data.map((story, i) => (
+          <StoryCard key={i} story={story} activeContent={activeContent} />
+        ))}
       </div>
     </div>
   );

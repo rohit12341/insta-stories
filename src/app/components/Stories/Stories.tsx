@@ -17,7 +17,7 @@ const Stories = ({ data }: Props) => {
           <div
             onClick={() => setActiveStory(i)}
             key={story.id}
-            className="flex flex-col gap-1"
+            className="flex flex-col gap-1 cursor-pointer"
           >
             <Image
               src={story.user.avatar}
@@ -25,6 +25,7 @@ const Stories = ({ data }: Props) => {
               height={100}
               alt={story.user.username}
               className="w-16 h-16 rounded-full"
+              loading="lazy"
             />
             <p className="text-xs text-center">{story.user.username}</p>
           </div>
