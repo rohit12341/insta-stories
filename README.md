@@ -41,6 +41,7 @@ Clone the repository on the local machine
 Install dependencies:
 npm install
 
+Run locally:
 npm run dev
 # or
 yarn dev
@@ -48,6 +49,9 @@ yarn dev
 pnpm dev
 # or
 bun dev
+
+run e2e test cases:
+npm run test
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
