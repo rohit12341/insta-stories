@@ -15,15 +15,14 @@ const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
   const [activeContent, setActiveContent] = React.useState<number>(0);
 
   const scrollToStory = (index: number) => {
-      const parent = containerRef.current;
-      if (parent && parent.children[index]) {
-        (parent.children[index] as HTMLElement).scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-        });
-      }
-      console.log('scrolled to', index)
-  }
+    const parent = containerRef.current;
+    if (parent && parent.children[index]) {
+      (parent.children[index] as HTMLElement).scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  };
 
   const handleClick = (
     e: React.MouseEvent<HTMLDivElement> | null,
@@ -62,7 +61,7 @@ const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
     }
     setActiveStory(storyIndex);
     setActiveContent(activeIndex);
-    scrollToStory(storyIndex)
+    scrollToStory(storyIndex);
   };
 
   useEffect(() => {
@@ -77,15 +76,27 @@ const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
   }, []);
 
   return (
-    <div data-testid={`storyContainer-${activeStory}`} className="fixed top-0 z-50 w-[375px] overflow-hidden h-full bg-black text-white left-[50%] transform -translate-x-1/2">
+    <div
+      data-testid={`storyContainer-${activeStory}`}
+      className="fixed top-0 z-10 w-[375px] left-[50%] transform -translate-x-1/2 bg-black text-white"
+    >
       <div
-        onClick={handleClick}
-        ref={containerRef}
-        className="flex justify-start gap-x-3 snap-x snap-mandatory no-scrollbar"
+        data-testid="closeStroy"
+        onClick={() => setActiveStory(undefined)}
+        className="h-5 w-5 fixed top-2 right-2 z-50 text-xl flex items-center justify-center cursor-pointer"
       >
-        {data.map((story, i) => (
-          <StoryCard key={i} story={story} activeContent={activeContent} />
-        ))}
+        &times;
+      </div>
+      <div className="overflow-hidden h-full">
+        <div
+          onClick={handleClick}
+          ref={containerRef}
+          className="flex justify-start gap-x-3 snap-x snap-mandatory no-scrollbar"
+        >
+          {data.map((story, i) => (
+            <StoryCard key={i} story={story} activeContent={activeContent} />
+          ))}
+        </div>
       </div>
     </div>
   );
