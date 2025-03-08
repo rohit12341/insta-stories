@@ -11,12 +11,13 @@ const Stories = ({ data }: Props) => {
   const [activeStory, setActiveStory] = useState<number | undefined>(undefined);
 
   return (
-    <div>
+    <div data-testid="storyPage">
       <div className="flex items-center gap-4 p-4">
         {data.map((story, i) => (
           <div
             onClick={() => setActiveStory(i)}
             key={story.id}
+            data-testid={`story-${i}`}
             className="flex flex-col gap-1 cursor-pointer"
           >
             <Image

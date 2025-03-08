@@ -10,7 +10,7 @@ type Props = {
 
 const StoryHeader = ({ user }: Props) => {
   return (
-    <div className="flex items-start justify-between absolute top-0 left-0 w-full p-4 z-10">
+    <div data-testid="storyHeader" className="flex items-start justify-between absolute top-0 left-0 w-full p-4 z-10">
       <div className="flex items-start gap-2">
         <Image
           src={user.avatar}

@@ -19,7 +19,7 @@ const StoryCard = ({ story, activeContent }: Props) => {
       />
       <StoryHeader user={story.user} />
       {content && (
-        <div className="h-screen flex items-center justify-center">
+        <div data-testid="storyContent" className="h-screen flex items-center justify-center">
           {content.type === "image" && (
             <Image
               src={content.src}

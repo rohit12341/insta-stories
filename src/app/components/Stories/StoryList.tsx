@@ -77,7 +77,7 @@ const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
   }, []);
 
   return (
-    <div className="fixed top-0 z-50 w-[375px] overflow-hidden h-full bg-black text-white left-[50%] transform -translate-x-1/2">
+    <div data-testid={`storyContainer-${activeStory}`} className="fixed top-0 z-50 w-[375px] overflow-hidden h-full bg-black text-white left-[50%] transform -translate-x-1/2">
       <div
         onClick={handleClick}
         ref={containerRef}
