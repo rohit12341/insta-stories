@@ -10,7 +10,6 @@ type Props = {
 
 const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const swaipeInterval = useRef<NodeJS.Timeout | null>(null);
   const story = data[activeStory];
   const [activeContent, setActiveContent] = React.useState<number>(0);
 
@@ -24,6 +23,10 @@ const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
     }
   };
 
+  useEffect(() => {
+    scrollToStory(activeStory)
+  }, [activeStory])
+
   const handleClick = (
     e: React.MouseEvent<HTMLDivElement> | null,
     direction?: string
@@ -32,10 +35,6 @@ const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
     const clickPosition = e?.clientX ?? 0;
     let activeIndex = activeContent;
     let storyIndex = activeStory;
-
-    if (!direction) {
-      swaipeInterval.current && clearInterval(swaipeInterval.current);
-    }
 
     if (direction === "right" || clickPosition > viewportWidth / 2) {
       // Go to next activeContent if 50% right clicked
@@ -61,19 +60,7 @@ const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
     }
     setActiveStory(storyIndex);
     setActiveContent(activeIndex);
-    scrollToStory(storyIndex);
   };
-
-  useEffect(() => {
-    swaipeInterval.current = setInterval(() => {
-      handleClick(null, "right");
-    }, 5000);
-    return () => {
-      if (swaipeInterval.current) {
-        clearInterval(swaipeInterval.current);
-      }
-    };
-  }, []);
 
   return (
     <div
@@ -94,7 +81,13 @@ const StoryList = ({ data, activeStory, setActiveStory }: Props) => {
           className="flex justify-start gap-x-3 snap-x snap-mandatory no-scrollbar"
         >
           {data.map((story, i) => (
-            <StoryCard key={i} story={story} activeContent={activeContent} />
+            <StoryCard
+              key={i}
+              story={story}
+              activeContent={activeContent}
+              activeStory={activeStory}
+              setActiveStory={setActiveStory}
+            />
           ))}
         </div>
       </div>

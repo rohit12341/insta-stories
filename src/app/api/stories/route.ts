@@ -28,10 +28,10 @@ export async function GET() {
           type: "image",
           src: "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=1080&fit=max",
         },
-        {
-          type: "image",
-          src: "https://avatars.githubusercontent.com/u/30390511?v=4",
-        },
+        // {
+        //   type: "image",
+        //   src: "https://avatars.githubusercontent.com/u/30390511?v=4",
+        // },
       ],
     },
     {
